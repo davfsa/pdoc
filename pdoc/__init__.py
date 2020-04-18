@@ -1259,6 +1259,12 @@ class Function(Doc):
             if not _is_public(p.name) and p.default is not EMPTY:
                 continue
 
+            if p.kind == p.POSITIONAL_ONLY:
+                pos_only = True
+            elif pos_only:
+                params.append("/")
+                pos_only = False
+                
             if p.kind == p.VAR_POSITIONAL:
                 kw_only = True
             if p.kind == p.KEYWORD_ONLY and not kw_only:
